@@ -1,21 +1,34 @@
-flag_format = "flag{FLAG_HERE}"
+import random
+from typing import List  # Import typing module for type hints
 
-alice = []
-bob = []
+# flag_format = "flag{FLAG_HERE}"
 
-def make_the_list_into_char_list(list: list[str]) -> list[str]:
-    return []
+alice = ['0x62', '0x6f', '0x6f', '0x6c', '0x72', '0x6e', '0x63', '0x6e', '0x69', '0x72', '0x76', '0x6e', '0x5f', '0x75', '0x65', '0x75', '0x73', '0x5f', '0x69', '0x7b', '0x61', '0x66']
+bob = ['0x81', '0x6a', '0x7c', '0x66', '0x6f', '0x7b', '0x71', '0x66', '0x77', '0x7b', '0x6e', '0x62', '0x6b', '0x6d', '0x67', '0x79', '0x64', '0x69', '0x75', '0x68', '0x6d', '0x6c']
 
-def reverse_the_list(list: list[str]) -> list[str]:
-    return []
+def make_the_list_into_char_list(lst):
+    """Convert list of hex strings to characters"""
+    array = []
+    for i in range(len(lst)):
+        array.append(chr(int(lst[i], base=16)))
+    return array
 
-def decrease(list):
+def reverse_the_list(lst):
+    """Reverse the order of the list"""
+    array = []
+    for i in range(len(lst)):
+        array.append(lst[len(lst)-1-i])
+    return array
+
+def decrease(lst):
+    """Decrease values based on seeded random numbers"""
     random.seed("bob")
-    for i in range(len(list)):
-        list[i] = hex(int(list[i], base=16) - int(random.random() * 10))
-    return list
+    for i in range(len(lst)):
+        lst[i] = hex(int(lst[i], base=16) - int(random.random() * 10))
+    return lst
 
 def make_flag(alice_key, bob_key):
+    """Interleave characters from both keys to make the flag"""
     for i in range(len(alice_key)):
         print(alice_key[i], end="")
         print(bob_key[i], end="")
@@ -25,5 +38,3 @@ make_flag(
     make_the_list_into_char_list(reverse_the_list(alice)), 
     make_the_list_into_char_list(reverse_the_list(decrease(bob)))
 )
-
-print(flag_format)
